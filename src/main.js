@@ -92,6 +92,9 @@ define( function ( require ) {
             + '<div class="feed-content">'
             + item.text
             + '</div>'
+            + '<div class="feed-img">'
+            + (item.img ? '<img src="' + item.img + '">' : '')
+            + '</div>'
             + '<div class="item" data-seed="'
             + item.seed
             + '">'
@@ -117,6 +120,12 @@ define( function ( require ) {
 
         loop(items);
     }
+
+    var p = new Date();
+    var titleContent = p.getFullYear() + '-' + (p.getMonth() + 1)
+        + '-' + p.getDate() + '-' + p.getHours() +  '-mai-feed-list';
+        debugger;
+    document.querySelector('#title').textContent = titleContent;
 
     return {
         init: init

@@ -14,7 +14,6 @@
 	init();
 })();
 
-
 chrome.runtime.onMessage.addListener(
     function ( request, sender, sendResponse ) {
         // var def = document.contentWindow.define;
@@ -27,8 +26,6 @@ chrome.runtime.onMessage.addListener(
     }
 );
 
-
-
 function findAll(selector, dom) {
   var feedList = (dom || document).querySelectorAll(selector);
   return Array.prototype.slice.call(feedList);
@@ -40,11 +37,23 @@ function find(selector, dom) {
 
 function getFeed(feed) {
   var text = find('.text', feed).textContent;
+  var images = findAll('img', feed);
   var seed = find('.discuss', feed).href;
-  return {
+  var rst = {
     text: text,
     seed: seed
   };
+
+  if (images && images.length) {
+    images.some(function (img) {
+       if ( img.src.indexOf('/maimai/') > -1) {
+           rst.img = img.src;
+       }
+       return rst.img;
+    });
+  }
+
+  return rst;
 }
 
 
